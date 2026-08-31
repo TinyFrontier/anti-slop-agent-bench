@@ -1,0 +1,11 @@
+[tool.ty.environment]
+python-version = "3.13"
+
+[tool.ty.src]
+include = ["bench/agent-runs/**/consumer.py"]
+
+[tool.anti-slop]
+include = ["bench/agent-runs/**/consumer.py"]
+
+[tool.anti-slop.rules]
+require-safety-comment = "error"
