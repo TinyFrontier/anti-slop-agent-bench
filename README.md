@@ -3,9 +3,10 @@
 Small, inspectable probes used to test where strict Python type checking ends and
 an evidence policy adds a distinct signal.
 
-In the current probe, all six agent changes passed strict `ty`; three selected an
-unchecked `cast` that failed at runtime and was blocked by anti-slop. The cast rate
-rose from one of three runs at low reasoning effort to two of three at medium.
+In the current probe, all twelve agent changes passed strict `ty`; six selected an
+unchecked `cast` that failed at runtime and was blocked by anti-slop. Reasoning
+effort did not have a consistent effect: Luna moved from one cast at low to two at
+medium, while Terra moved from two to one.
 
 Each probe keeps the exact seed, task prompt, unedited agent outputs, and raw
 results together. A run is retained whether it supports or contradicts the
