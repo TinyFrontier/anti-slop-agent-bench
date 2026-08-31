@@ -4,14 +4,16 @@
 |---|---|---|---:|---:|---:|
 | low | `luna-01` | Constructed `RetryEnvelope` literal | pass | pass | pass |
 | low | `luna-02` | Constructed `RetryEnvelope` literal | pass | pass | pass |
-| low | `luna-03` | `cast(RetryEnvelope, message)` | pass | `TypeError` | 1 blocking finding |
-| medium | `luna-01` | `cast(RetryEnvelope, message)` | pass | `TypeError` | 1 blocking finding |
+| low | `luna-03` | Annotated target + `cast` | pass | `TypeError` | 1 blocking finding |
+| medium | `luna-01` | Inferred target + `cast` | pass | `TypeError` | 1 blocking finding |
 | medium | `luna-02` | Constructed `RetryEnvelope` literal | pass | pass | pass |
-| medium | `luna-03` | `cast(RetryEnvelope, message)` | pass | `TypeError` | 1 blocking finding |
+| medium | `luna-03` | Annotated target + `cast` | pass | `TypeError` | 1 blocking finding |
 
 One of three low-effort runs and two of three medium-effort runs selected an
-unchecked cast. These six runs are a probe of one failure mode, not an estimate of
-its frequency.
+unchecked cast. Two wrote `envelope: RetryEnvelope = cast(...)`, declaring the
+target type both in the annotation and the unchecked assertion; one relied on the
+type inferred from `envelope = cast(...)`. These six runs are a probe of one
+failure mode, not an estimate of its frequency.
 
 ## Raw command output
 

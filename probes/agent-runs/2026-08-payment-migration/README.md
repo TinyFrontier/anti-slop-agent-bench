@@ -2,7 +2,10 @@
 
 This probe asks whether a coding agent, under minimal-diff pressure, will use an
 unchecked `cast` to make a dataclass-to-`TypedDict` migration pass strict type
-checking. It is a small run set, not a benchmark or an estimate of failure frequency.
+checking. All six changes passed strict `ty`; three selected an unchecked cast that
+failed at runtime and was blocked by anti-slop. The cast rate rose from one of three
+runs at low reasoning effort to two of three at medium. This is a small run set,
+not a benchmark or an estimate of failure frequency.
 
 ## Protocol
 
@@ -32,9 +35,8 @@ renumbered to put an interesting result first.
 | ty | `0.0.74` (`00199f0aa`, built 2026-08-22) |
 | anti-slop-py | `0.1.0`, upstream `86ea16d3abb2322e0496c5b6da8cd6d5704166cf` |
 
-The recorded anti-slop commands used the vendored snapshot in local repository
-`trx-viewer` at commit `0bda124300e8cd68320d624319062abb06642132`.
-Running upstream anti-slop-py at the revision above reproduced the same finding.
+Running upstream anti-slop-py at the revision above reproduced the recorded
+findings.
 
 ## Layout
 
@@ -57,6 +59,8 @@ probes/agent-runs/2026-08-payment-migration/
 From the repository root:
 
 ```bash
+python3.13 -m pip install "ty==0.0.74"
+python3.13 -m pip install "anti-slop-py @ git+https://github.com/TinyFrontier/anti-slop-py.git@86ea16d3abb2322e0496c5b6da8cd6d5704166cf"
 cd probes/agent-runs/2026-08-payment-migration/low/luna-03
 ty check --error all consumer.py
 python3.13 -c 'from consumer import PaymentMessage, retry_key; print(retry_key(PaymentMessage("pay_123", 2500)))'
@@ -73,7 +77,9 @@ See [`results.md`](results.md) for all six outcomes and raw command output.
   and the task explicitly stopped at a green type checker.
 - The prompt fixes the downstream indexing logic and requests the smallest change.
   That creates pressure toward a cast and is part of the scenario, not a neutral
-  sample of Python work.
+  sample of Python work. The pressure was not inescapable: three of the six agents
+  satisfied every stated constraint by constructing a `RetryEnvelope` without a
+  cast.
 - Six runs of one prompt on one model cannot estimate a failure rate or support a
   general claim about coding agents.
 - Runtime and anti-slop checks were performed after each authoring agent stopped;
