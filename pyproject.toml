@@ -2,10 +2,14 @@
 python-version = "3.13"
 
 [tool.ty.src]
-include = ["bench/agent-runs/**/consumer.py"]
+include = [
+  "probes/agent-runs/**/low/**/consumer.py",
+  "probes/agent-runs/**/medium/**/consumer.py",
+]
 
 [tool.anti-slop]
-include = ["bench/agent-runs/**/consumer.py"]
+include = ["probes/agent-runs"]
+exclude = ["probes/agent-runs/**/seed/**", "**/__pycache__/**"]
 
 [tool.anti-slop.rules]
 require-safety-comment = "error"
