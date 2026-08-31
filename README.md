@@ -12,6 +12,10 @@ In a matched Luna follow-up where the failing runtime case was supplied as a
 required regression test, all six agents constructed a real `RetryEnvelope`: both
 `ty` and the test passed, and anti-slop was silent on all six outputs.
 
+In a partial-coverage follow-up, all six outputs passed strict `ty` and the visible
+legacy test. Two used `cast`; both failed a held-out test for the new payload and
+were the only outputs blocked by the configured anti-slop policy.
+
 Each probe keeps the exact seed, task prompt, unedited agent outputs, and raw
 results together. A run is retained whether it supports or contradicts the
 hypothesis.
@@ -20,3 +24,4 @@ Current probes:
 
 - [`2026-08-payment-migration`](probes/agent-runs/2026-08-payment-migration/README.md)
 - [`2026-08-payment-migration-with-test`](probes/agent-runs/2026-08-payment-migration-with-test/README.md)
+- [`2026-08-rolling-payment-migration-partial-tests`](probes/agent-runs/2026-08-rolling-payment-migration-partial-tests/README.md)

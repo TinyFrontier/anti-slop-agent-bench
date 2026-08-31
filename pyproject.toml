@@ -3,11 +3,15 @@ python-version = "3.13"
 
 [tool.ty.src]
 include = ["probes/agent-runs"]
-exclude = ["probes/agent-runs/**/seed/**"]
+exclude = [
+  "probes/agent-runs/**/held_out/**",
+  "probes/agent-runs/**/seed/**",
+]
 
 [tool.anti-slop]
 include = ["probes/agent-runs"]
 exclude = ["probes/agent-runs/**/seed/**", "**/__pycache__/**"]
 
 [tool.anti-slop.rules]
+no-adhoc-isinstance = "off"
 require-safety-comment = "error"
