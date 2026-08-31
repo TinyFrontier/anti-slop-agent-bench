@@ -2,10 +2,8 @@
 python-version = "3.13"
 
 [tool.ty.src]
-include = [
-  "probes/agent-runs/**/low/**/consumer.py",
-  "probes/agent-runs/**/medium/**/consumer.py",
-]
+include = ["probes/agent-runs"]
+exclude = ["probes/agent-runs/**/seed/**"]
 
 [tool.anti-slop]
 include = ["probes/agent-runs"]
